@@ -1,0 +1,61 @@
+﻿<Window x:Class="View.GameView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View" 
+        xmlns:viewModels="clr-namespace:View.ViewModels"
+        mc:Ignorable="d"
+        Title="Kelime Oyunu" 
+        Height="500" Width="800"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.DataContext>
+        <viewModels:GameViewModel/>
+    </Window.DataContext>  
+
+        <Grid>
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Kelime Oyunu" Style="{StaticResource TitleStyle}"/>
+
+            <StackPanel Margin="10" Orientation="Vertical" Width="150">
+                <!-- Kasadenetimi -->
+                <TextBlock Text="{Binding ScoreBox,Mode=TwoWay}" Style="{StaticResource GameStatusControls}"/>
+
+                <!-- Süre denetimi -->
+                <TextBlock Text="Süre: " Style="{StaticResource GameStatusControls}"/>
+
+                <!-- Kelime süre denetimi -->
+                <TextBlock Text="Kelime süre: : " Style="{StaticResource GameStatusControls}"/>
+                            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Margin="10,30,0,0">
+                <!--Kelime ipucu denetimi -->
+                <TextBlock Text="{Binding Clue,Mode=TwoWay}" Style="{StaticResource HintTextBlockStyle}"/>
+<!-- Kelime açılan harfler denetimi -->
+                <TextBlock Text="{Binding OpenLetters,Mode=TwoWay}" Style="{StaticResource HintTextBlockStyle}"/>
+
+
+                <!-- Kelime giriş denetimi -->
+                <TextBox Text="{Binding Guess, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource HintTextBoxStyle}" AutomationProperties.Name="Cevap"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Margin="10,30,0,0">
+                <!-- Oyun bitiş denetimi -->
+                <Button Content="Oyunu bitir" Style="{StaticResource GameButtonStyle}" Command="{Binding FinishGameCommand}"/>
+                
+                <!-- Süreyi durdur denetimi -->
+                <Button Content="Süreyi durdur" Style="{StaticResource GameButtonStyle}" Command="{Binding StopTimeCommand}"/>
+                
+                <!-- Harf al denetimi -->
+                <Button Content="Harf al" Style="{StaticResource GameButtonStyle}" Command="{Binding GetLetterCommand}"/>
+                
+                <!-- Cevap denetimi -->
+                <Button Content="Cevap ver" Style="{StaticResource GameButtonStyle}" Command="{Binding AnswerCommand}"/>
+                
+                <!-- Yeni soru denetimi -->
+                <Button Content="Yeni soru" Style="{StaticResource GameButtonStyle}" Command="{Binding NewQuestion}"/>
+            </StackPanel>
+            </StackPanel>
+    </Grid>
+</Window>
